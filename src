@@ -1,0 +1,61 @@
+CREATE DATABASE sistema_vendas;
+USE sistema_vendas;
+CREATE TABLE clientes (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    telefone VARCHAR(15)
+);
+CREATE TABLE produtos (
+    id_produto INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL,
+    quantidade_estoque INT NOT NULL
+);
+CREATE TABLE vendas (
+    id_venda INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT,
+    id_produto INT,
+    quantidade_vendida INT NOT NULL,
+    data_venda DATE NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
+    FOREIGN KEY (id_produto) REFERENCES produtos(id_produto)
+);
+INSERT INTO clientes (nome, email, telefone) VALUES
+('Ana Silva', 'ana.silva@email.com', '123456789'),
+('Carlos Santos', 'carlos.santos@email.com', '987654321'),
+('Maria Oliveira', 'maria.oliveira@email.com', '456789123');
+INSERT INTO produtos (nome, preco, quantidade_estoque) VALUES
+('Produto A', 25.50, 100),
+('Produto B', 15.75, 200),
+('Produto C', 45.00, 150);
+INSERT INTO vendas (id_cliente, id_produto, quantidade_vendida, data_venda) VALUES
+(1, 1, 2, '2024-09-01'),
+(1, 2, 1, '2024-09-02'),
+(2, 1, 5, '2024-09-03'),
+(3, 3, 3, '2024-09-04'),
+(3, 2, 4, '2024-09-05');
+SELECT v.id_venda, c.nome AS nome_cliente, p.nome AS nome_produto, v.quantidade_vendida, v.data_venda
+FROM vendas v
+JOIN clientes c ON v.id_cliente = c.id_cliente
+JOIN produtos p ON v.id_produto = p.id_produto;
+SELECT p.nome AS nome_produto, v.quantidade_vendida, v.data_venda
+FROM vendas v
+JOIN produtos p ON v.id_produto = p.id_produto
+WHERE v.id_cliente = 1;
+SELECT p.nome AS nome_produto, SUM(v.quantidade_vendida) AS total_vendido
+FROM vendas v
+JOIN produtos p ON v.id_produto = p.id_produto
+GROUP BY p.id_produto;
+UPDATE produtos
+SET quantidade_estoque = quantidade_estoque - (SELECT quantidade_vendida FROM vendas WHERE id_produto = 1 ORDER BY id_venda DESC LIMIT 1)
+WHERE id_produto = 1;
+UPDATE clientes
+SET telefone = '111222333'
+WHERE id_cliente = 1;
+-- Primeiro, deletar a venda
+DELETE FROM vendas WHERE id_venda = 1;
+
+-- Em seguida, deletar o cliente se não houver mais vendas associadas a ele
+DELETE FROM calientes
+WHERE id_cliente = 1 AND NOT EXISTS (SELECT 1 FROM vendas WHERE id_cliente = 1);
