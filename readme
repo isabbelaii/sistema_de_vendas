@@ -1,0 +1,59 @@
+# Sistema de Gerenciamento de Vendas
+
+## Descrição
+
+Este projeto é um sistema de gerenciamento de vendas para uma loja local. O sistema foi desenvolvido para armazenar e gerenciar informações sobre produtos, clientes e vendas realizadas. Ele inclui funcionalidades para inserção, atualização, deleção e consulta de dados.
+
+## Estrutura do Banco de Dados
+
+O banco de dados `sistema_vendas` possui as seguintes tabelas:
+
+- **clientes**: Armazena informações dos clientes.
+  - `id_cliente` (INT, AUTO_INCREMENT, PRIMARY KEY)
+  - `nome` (VARCHAR(100), NOT NULL)
+  - `email` (VARCHAR(100), NOT NULL, UNIQUE)
+  - `telefone` (VARCHAR(15))
+
+- **produtos**: Armazena informações dos produtos.
+  - `id_produto` (INT, AUTO_INCREMENT, PRIMARY KEY)
+  - `nome` (VARCHAR(100), NOT NULL)
+  - `preco` (DECIMAL(10, 2), NOT NULL)
+  - `quantidade_estoque` (INT, NOT NULL)
+
+- **vendas**: Registra as vendas realizadas.
+  - `id_venda` (INT, AUTO_INCREMENT, PRIMARY KEY)
+  - `id_cliente` (INT)
+  - `id_produto` (INT)
+  - `quantidade_vendida` (INT, NOT NULL)
+  - `data_venda` (DATE, NOT NULL)
+
+## Instruções
+
+### Configuração do Banco de Dados
+
+1. Execute o script SQL fornecido para criar o banco de dados e as tabelas, e para inserir os dados de exemplo.
+2. As consultas para visualização e manipulação dos dados estão disponíveis no script SQL.
+
+### Consultas e Relatórios
+
+- **Todas as Vendas Realizadas:** Mostra as vendas com nome do cliente e nome do produto.
+- **Compras de um Cliente Específico:** Mostra todas as compras realizadas por um cliente específico.
+- **Total de Vendas por Produto:** Exibe o total de vendas realizadas por produto.
+
+### Atualização e Deleção
+
+- **Atualizar Estoque de Produtos:** Atualiza o estoque após uma venda.
+- **Atualizar Informações do Cliente:** Atualiza o telefone ou outros dados do cliente.
+- **Deletar Vendas e Clientes:** Remove vendas e, se necessário, clientes associados.
+
+## Testes
+
+Certifique-se de testar todas as operações no banco de dados para garantir que os dados são manipulados corretamente e que as consultas retornam os resultados esperados.
+
+## Licença
+
+Este projeto está licenciado sob a [Licença MIT](LICENSE).
+
+## Contato
+
+Para dúvidas ou sugestões, entre em contato com [seu.email@dominio.com](mailto:seu.email@dominio.com).
