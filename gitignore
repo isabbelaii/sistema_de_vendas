@@ -1,0 +1,17 @@
+# Ignorar arquivos temporários e de sistema
+*.log
+*.tmp
+*.swp
+.DS_Store
+
+# Ignorar arquivos de backup de SQL
+*.bak
+*.sql~
+
+# Ignorar arquivos específicos do IDE (Exemplos para VS Code e IntelliJ IDEA)
+.vscode/
+.idea/
+*.iml
+
+# Ignorar arquivos gerados automaticamente
+*.sql.gz
